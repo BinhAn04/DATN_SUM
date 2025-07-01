@@ -18,10 +18,10 @@
         cursor: pointer;
     }
 
-    .custom-control-label i {
-        font-size: 1.5rem;
-        margin-right: 0.5rem;
-    }
+        .custom-control-label i {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
 
     .custom-control-input:checked ~ .custom-control-label {
         color: #007bff;
@@ -36,7 +36,7 @@
     }
 
     .font-extra-bold {
-        font-weight: 700; 
+        font-weight: 700;
     }
 </style>
 @if (TempData["ErrorMessage"] != null)
@@ -49,7 +49,7 @@
     <div class="row">
         <div class="col-md-8">
             <h2 class="my-4">Thông Tin Giao Hàng</h2>
-            <div class="card">               
+            <div class="card">
                 <div class="xBNaac "></div>
                 <h5 class="ms-3 my-3">Thông Tin Người Nhận</h5>
                 <div class="d-flex">
@@ -62,10 +62,10 @@
                             <div data-i18n="Address">Thay Đổi</div>
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
-         
+
 
             <div class="modal fade" id="addressListModal" tabindex="-1" aria-labelledby="addressListModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -83,9 +83,9 @@
                 </div>
             </div>
             <h3 class="my-4">Địa Giao Hàng</h3>
-            <div class="card">     
+            <div class="card">
                 <div class="ms-3">
-                    <div class="d-flex mb-4 mt-4" >
+                    <div class="d-flex mb-4 mt-4">
                         <div class="form-group mb-1 me-5">
                             <label>Họ tên</label>
                             <input class="form-control" asp-for="NguoiNhan" readonly />
@@ -98,23 +98,23 @@
                             <span asp-validation-for="SoDienThoai"></span>
                         </div>
                     </div>
-                   
+
                     <div class="d-flex mt-5 mb-2">
                         <div class="form-group mb-1 me-5">
                             <label>Tỉnh/Thành phố</label>
-                            <input type="text" class="form-control" id="province" name="ProvinceName" value="@Model.ProvinceName " readonly/>
+                            <input type="text" class="form-control" id="province" name="ProvinceName" value="@Model.ProvinceName " readonly />
                         </div>
                         <div class="form-group mb-3 ms-5 me-5">
-                            <label>Quận/Huyện</label>                     
-                            <input type="text" class="form-control" id="district" name="DistrictName" value="@Model.DistrictName" readonly/>
+                            <label>Quận/Huyện</label>
+                            <input type="text" class="form-control" id="district" name="DistrictName" value="@Model.DistrictName" readonly />
                         </div>
                         <div class="form-group mb-3 ms-4">
                             <label>Phường/Xã</label>
                             <input type="text" class="form-control" id="ward" name="WardName" value="@Model.WardName" readonly />
-                        </div>                       
-                    </div>  
-                    
-                </div>              
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <form asp-action="ProcessCheckout" method="post">
                 <div class="form-group" hidden>
@@ -165,10 +165,10 @@
 
                 <button type="button" class="btn btn-primary" onclick="confirmCheckout()">Hoàn thành đặt hàng</button>
 
-            </form>           
+            </form>
         </div>
 
-        
+
         <div class="col-md-4">
             <h2 class="my-4">Đơn hàng</h2>
             <div class="card">
@@ -297,40 +297,40 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function confirmCheckout() {
-           const totalBill = parseFloat(document.getElementById('tong_tien').value.replace(/[^0-9.-]+/g, "")) || 0;
+        const totalBill = parseFloat(document.getElementById('tong_tien').value.replace(/[^0-9.-]+/g, "")) || 0;
 
-           const confirmationMessage = `Bạn có chắc chắn muốn thanh toán tổng cộng ${formatCurrency(totalBill)}?`;
-           if (confirm(confirmationMessage)) {
-               // Submit the form if the user confirms
-               document.querySelector('form').submit();
-           }
-       }
+        const confirmationMessage = `Bạn có chắc chắn muốn thanh toán tổng cộng ${formatCurrency(totalBill)}?`;
+        if (confirm(confirmationMessage)) {
+            // Submit the form if the user confirms
+            document.querySelector('form').submit();
+        }
+    }
     // Define the formatCurrency function in the global scope
-    
+
 
     // Load user addresses function
     function loadUserAddresses() {
         $.ajax({
             url: '@Url.Action("GetUserAddresses", "HomeClient", new { area = "Client" })',
             type: 'GET',
-            success: function(data) {
+            success: function (data) {
                 $('#addressList').html(data);
             },
-            error: function() {
+            error: function () {
                 $('#addressList').html('<p>Không thể tải danh sách địa chỉ.</p>');
             }
         });
     }
 
     // Load districts when province changes
-    $("#ProvinceId").change(function() {
+    $("#ProvinceId").change(function () {
         var provinceId = $(this).val();
         console.log("ProvinceId:", provinceId);
-        $.get('/Client/HomeClient/GetDistricts', { provinceId: provinceId }, function(data) {
+        $.get('/Client/HomeClient/GetDistricts', { provinceId: provinceId }, function (data) {
             console.log(data);
             $("#DistrictId").empty().append('<option value="">Chọn quận/huyện</option>');
             if (Array.isArray(data)) {
-                $.each(data, function(i, item) {
+                $.each(data, function (i, item) {
                     $("#DistrictId").append('<option value="' + item.districtId + '">' + item.districtName + '</option>');
                 });
             } else {
@@ -338,20 +338,20 @@
             }
             var selectedProvince = $("#ProvinceId option:selected").text();
             $("#ProvinceName").val(selectedProvince);
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error("Error: " + textStatus, errorThrown);
             alert("Có lỗi khi tải dữ liệu quận/huyện!");
         });
     });
 
     // Load wards when district changes
-    $("#DistrictId").change(function() {
+    $("#DistrictId").change(function () {
         var districtId = $(this).val();
         console.log("DistrictId:", districtId);
-        $.get('@Url.Action("GetWards", "HomeClient", new { area = "Client" })?districtId=' + districtId, function(data) {
+        $.get('@Url.Action("GetWards", "HomeClient", new { area = "Client" })?districtId=' + districtId, function (data) {
             console.log(data);
             $("#WardId").empty().append('<option value="">Chọn phường/xã</option>');
-            $.each(data, function(i, item) {
+            $.each(data, function (i, item) {
                 $("#WardId").append('<option value="' + item.wardId + '">' + item.wardName + '</option>');
             });
             // Set DistrictName
@@ -361,14 +361,14 @@
     });
 
     // When changing Ward, set WardName
-    $("#WardId").change(function() {
+    $("#WardId").change(function () {
         var wardName = $("#WardId option:selected").text();
         $("#WardName").val(wardName);
     });
 
     let lastSelectedVoucher = null; // Variable to store the last selected voucher
 
-    $('.voucher-radio').on('click', function() {
+    $('.voucher-radio').on('click', function () {
         var voucherId = $(this).val();
         var shippingFee = parseFloat($('#phi_van_chuyen').val().replace(/[^0-9.-]+/g, "")) || 0; // Get shipping fee
         var originalTotal = parseFloat($('#tong_so_tien').val().replace(/[^0-9.-]+/g, "")) || 0; // Get original total amount
@@ -386,7 +386,7 @@
             $.ajax({
                 url: '@Url.Action("ClearVoucherSession", "HomeClient", new { area = "Client" })',
                 type: 'POST',
-                success: function(response) {
+                success: function (response) {
                     if (!response.success) {
                         alert(response.message); // Show error message if any
                     } else {
@@ -394,7 +394,7 @@
                         resetTotalAmount(shippingFee); // Reset total amount
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('An error occurred while clearing the voucher from session.');
                 }
             });
@@ -406,7 +406,7 @@
                 url: '@Url.Action("ApplyVoucher", "HomeClient", new { area = "Client" })',
                 type: 'POST',
                 data: { voucherId: voucherId, shippingFee: shippingFee },
-                success: function(response) {
+                success: function (response) {
                     // Format the discount values
                     response.totalAfterDiscount = formatCurrency(response.totalAfterDiscount);
                     response.discountAmount = formatCurrency(response.discountAmount);
@@ -420,26 +420,26 @@
 
                         // Show discount info
                         $('#tong_so_tien').closest('.form-group').after(`
-                            <div id="discount-row" class="form-group">
-                                <label>Giảm giá Voucher</label>
-                                <input type="text" class="form-control" value="${response.discountAmount}" readonly />
-                            </div>
-                        `);
+                                <div id="discount-row" class="form-group">
+                                    <label>Giảm giá Voucher</label>
+                                    <input type="text" class="form-control" value="${response.discountAmount}" readonly />
+                                </div>
+                            `);
 
                         // Update total amount with the voucher
                         $('#tong_tien').val(response.totalAfterDiscount);
 
                         // Add hidden fields for voucher info
                         $('form').append(`
-                            <input type="hidden" name="SelectedVoucherId" value="${response.voucherId}" />
-                            <input type="hidden" name="DiscountAmount" value="${response.discountAmount.replace(/[^0-9.-]+/g, "")}" />
-                        `);
+                                <input type="hidden" name="SelectedVoucherId" value="${response.voucherId}" />
+                                <input type="hidden" name="DiscountAmount" value="${response.discountAmount.replace(/[^0-9.-]+/g, "")}" />
+                            `);
                     } else {
                         // If not successful
                         alert(response.message); // Show error message
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('An error occurred. Please try again.');
                 }
             });
@@ -461,7 +461,7 @@
         return '0 VND'; // Default return for undefined or null
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Get total amounts
         const totalAmount = parseFloat(document.getElementById('tong_so_tien').value.replace(/[^0-9.-]+/g, "")) || 0;
         const shippingFee = parseFloat(document.getElementById('phi_van_chuyen').value.replace(/[^0-9.-]+/g, "")) || 0;
