@@ -4,7 +4,7 @@
     }
 
     .navbar-brand img {
-        max-width: 102px;
+        max-width: 100px;
         height: auto;
         transform: scale(1.5);
     }
@@ -36,11 +36,24 @@
     .navbar-toggler {
         padding: 0.25rem; /* Giảm padding cho nút toggle */
     }
+
+    .search-form input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 450px;
+        margin-right: 10px;
+    }
+
+    .search-form {
+        margin: auto;
+    }
+
 </style>
 <link rel="stylesheet" href="/Client/css/loading.css" />
 <div class="loading-container" id="loading" style="display: none;">
     <div class="loader"></div>
-    <p>Chờ xíu SoleMates đang tìm sản phẩm cho bạn!</p>
+    <p>Chờ xíu Stride X đang tìm sản phẩm cho bạn!</p>
 </div>
 
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Thanh điều hướng SoleMates">
@@ -52,6 +65,12 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsSoleMates">
+@*             <div class="search-form">
+                <form method="get" action="@Url.Action("Index")">
+                    <input type="text" name="name" placeholder="Tìm kiếm sản phẩm..." value="@ViewData["SearchTerm"]" />
+                </form>
+            </div> *@
+
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "HomeClient" ? "active" : "")">
                     <a class="nav-link" href="@Url.Action("Index", "HomeClient", new { area = "Client" })">Trang Chủ</a>

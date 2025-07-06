@@ -6,25 +6,6 @@
 <link rel="stylesheet" href="/Client/css/sanPham.css" />
 
 <style>
-    .search-form {
-        display: flex;
-        justify-content: left;
-        margin: auto;
-    }
-    .search-form input {
-        padding: 8px 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 450px;
-        margin-right: 10px;
-    }
-
-    .col-lg-3 {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-        flex: 0 0 auto;
-        width: 20%;
-    }
 </style>
 @if (TempData["SuccessMessage"] != null)
 {
@@ -44,13 +25,13 @@
         </div>
     </div>
 }
-@* 
+
 <div class="search-form">
     <form method="get" action="@Url.Action("Index")">
         <input type="text" name="name" placeholder="Tìm kiếm sản phẩm..." value="@ViewData["SearchTerm"]" />
         <button type="submit">Tìm kiếm</button>
     </form>
-</div> *@
+</div>
 <div class="container">
     <div class="row">
         @if (Model != null && Model.Count > 0)
